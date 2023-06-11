@@ -1,0 +1,46 @@
+[tool.poetry]
+name = "alura-books-fastapi"
+version = "0.1.0"
+description = "Backend do alura-books em fastAPI"
+authors = ["Henrique Andrade <henrique.ccda@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "alura_books_fastapi"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = {extras = ["all"], version = "^0.96.1"}
+pymongo = "^4.3.3"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.3.0"
+ruff = "^0.0.272"
+ipython = "^8.14.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 120
+exclude = '''
+/(
+      \.eggs
+    | \.git
+    | \.venv
+)/
+'''
+
+[tool.ruff]
+line-length = 120
+
+select = [
+    "E",
+    "F",
+    "I",
+]
+
+exclude = [
+    ".venv"
+]

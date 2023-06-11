@@ -1,0 +1,15 @@
+services:
+
+  mongo:
+    image: mongo
+    restart: no
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: alura
+      MONGO_INITDB_ROOT_PASSWORD: 123456
+    volumes:
+      - mongodb:/data/db
+    ports:
+      - 27017:27017
+
+volumes:
+  mongodb:
