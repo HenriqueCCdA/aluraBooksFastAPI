@@ -10,5 +10,5 @@ class Livros(Base):
     ...
 
 
-class Favoritos(BaseModel):
+class Favoritos(Base):
     ...
