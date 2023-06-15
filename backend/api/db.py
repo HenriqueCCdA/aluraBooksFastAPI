@@ -6,12 +6,10 @@ from pymongo.database import Database
 from decouple import config
 
 
-MONGODB_URI = config("MONGODB_URI")
-
-
 def session() -> Generator[Database, None, None]:
+    MONGODB_URI = config("MONGODB_URI")
     try:
-        client = MongoClient(MONGODB_URI,authSource="admin")
+        client = MongoClient(MONGODB_URI, authSource="admin")
         yield client.get_default_database()
     finally:
         client.close()

@@ -19,6 +19,12 @@ ruff = "^0.0.272"
 ipython = "^8.14.0"
 python-decouple = "^3.8"
 
+
+[tool.poetry.group.tests.dependencies]
+pytest = "^7.3.2"
+ipdb = "^0.13.13"
+faker = "^18.10.1"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
