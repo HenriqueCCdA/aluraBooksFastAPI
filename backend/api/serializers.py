@@ -1,11 +1,14 @@
 from pydantic import BaseModel
 
 
-class Livros(BaseModel):
+class Base(BaseModel):
     id: str
     nome: str
+
+
+class Livros(Base):
+    ...
 
 
 class Favoritos(BaseModel):
-    id: str
-    nome: str
+    ...

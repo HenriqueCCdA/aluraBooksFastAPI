@@ -1,29 +1,19 @@
-from bson import ObjectId
+from typing import Annotated, Generator
+
+from fastapi import Depends
 from pymongo import MongoClient
+from pymongo.database import Database
 
 mongodb_uri = "mongodb://alura:123456@localhost:27017/"
 port = 27017
 
 
-client = MongoClient(mongodb_uri, port)
-db = client["alura"]
+def session() -> Generator[Database, None, None]:
+    try:
+        client = MongoClient(mongodb_uri, port)
+        yield client["alura"]
+    finally:
+        client.close()
 
 
-async def list_all_books():
-    return list(db.livros.find({}))
-
-
-async def list_all_fav():
-    return list(db.favoritos.find({}))
-
-
-async def insert_fav(book):
-    db.favoritos.insert_one(book)
-
-
-async def delete_fav(id: str):
-    db.favoritos.delete_one({"_id": ObjectId(id)})
-
-
-async def get_book_by_id(id: str):
-    return db.livros.find_one({"_id": ObjectId(id)})
+get_session = Annotated[Database, Depends(session)]
