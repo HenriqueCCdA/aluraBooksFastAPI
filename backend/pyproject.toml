@@ -11,19 +11,19 @@ packages = [{include = "alura_books_fastapi"}]
 python = "^3.11"
 fastapi = {extras = ["all"], version = "^0.96.1"}
 pymongo = "^4.3.3"
+python-decouple = "^3.8"
 
 
 [tool.poetry.group.dev.dependencies]
 black = "^23.3.0"
 ruff = "^0.0.272"
 ipython = "^8.14.0"
-python-decouple = "^3.8"
+faker = "^18.10.1"
+pytest = "^7.3.2"
+ipdb = "^0.13.13"
 
 
 [tool.poetry.group.tests.dependencies]
-pytest = "^7.3.2"
-ipdb = "^0.13.13"
-faker = "^18.10.1"
 
 [build-system]
 requires = ["poetry-core"]
@@ -50,4 +50,15 @@ select = [
 
 exclude = [
     ".venv"
+]
+
+[tool.pytest.ini_options]
+addopts = "-vv"
+testpaths = [
+    "tests",
+]
+markers=[
+    "unitary: marks unitary tests",
+    "integration: marks integration testes",
+    "cli: marks cli tests",
 ]
