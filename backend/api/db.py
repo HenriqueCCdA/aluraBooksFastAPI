@@ -1,9 +1,9 @@
 from typing import Annotated, Generator
 
+from decouple import config
 from fastapi import Depends
 from pymongo import MongoClient
 from pymongo.database import Database
-from decouple import config
 
 
 def session() -> Generator[Database, None, None]:

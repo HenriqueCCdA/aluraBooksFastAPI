@@ -1,13 +1,14 @@
 import os
-import pytest
 
-from fastapi.testclient import TestClient
+import pytest
 from faker import Faker
+from fastapi.testclient import TestClient
 
 from api.app import app
 from api.db import session
 
 fake = Faker()
+
 
 @pytest.fixture(scope="session", autouse=True)
 def env():
@@ -35,4 +36,14 @@ def client():
 
 @pytest.fixture
 def books_names():
-    return [ fake.name(),  fake.name() ]
+    return [fake.name(), fake.name()]
+
+
+@pytest.fixture
+def books_in_db(db, books_names):
+    return db.livros.insert_many([{"nome": name} for name in books_names])
+
+
+@pytest.fixture
+def fav_in_db(db, books_names):
+    return db.favoritos.insert_many([{"nome": name} for name in books_names])

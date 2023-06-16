@@ -1,0 +1,58 @@
+name: Python application
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  fmt_linter_tests:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      max-parallel: 1
+      matrix:
+        python-version: ['3.11']
+        mongodb-version: ['6.0']
+    defaults:
+        run:
+            working-directory: ./backend
+
+    services:
+        mongodb:
+            image: mongo:6.0
+            env:
+                MONGO_INITDB_ROOT_USERNAME: alura
+                MONGO_INITDB_ROOT_PASSWORD: 123456
+            ports:
+                - 27017:27017
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install Poetry
+      uses: snok/install-poetry@v1
+      with:
+        virtualenvs-create: true
+        virtualenvs-in-project: true
+        installer-parallel: true
+
+    - name: Install dependencies
+      run: |
+        poetry install --no-interaction --no-root
+
+    - name: Ruff and Black
+      run: |
+        poetry run ruff check tests api
+        poetry run black --check --diff tests/ api/
+
+    - name: Tests
+      run: |
+        poetry run pytest
