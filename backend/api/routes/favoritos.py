@@ -1,7 +1,7 @@
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, Request, status
 
 from api.db import get_session
-from api.serializers import Favoritos
+from api.serializers import Favoritos, book_dict
 from api.services import (
     delete_fav,
     get_book_by_id,
@@ -13,9 +13,9 @@ router = APIRouter()
 
 
 @router.get("/", response_model=list[Favoritos])
-async def list_favoritos(db: get_session):
+async def list_favoritos(db: get_session, request: Request):
     favs = await list_all_fav(db)
-    return [{"id": str(item["_id"]), **item} for item in favs]
+    return [book_dict(f, request.base_url._url) for f in favs]
 
 
 @router.post("/{id}/", tags=["favoritos"], status_code=status.HTTP_201_CREATED)
@@ -36,4 +36,4 @@ async def delete_favoritos(id: str, db: get_session):
     if not book:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"Id do livro {id} não achado nos favoritos.")
 
-    await delete_fav(id)
+    await delete_fav(id, db)

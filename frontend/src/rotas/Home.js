@@ -12,7 +12,7 @@ function Home() {
   return (
     <AppContainer>
       <Pesquisa />
-      <UltimosLancamentos />
+      {/* <UltimosLancamentos /> */}
     </AppContainer>
   );
 }
