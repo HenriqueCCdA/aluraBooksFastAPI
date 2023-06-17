@@ -12,8 +12,8 @@ def test_list(client, fav_in_db, books_names):
     assert response.status_code == status.HTTP_200_OK
 
     excepted = [
-        {"nome": books_names[0], "id": str(fav_in_db.inserted_ids[0])},
-        {"nome": books_names[1], "id": str(fav_in_db.inserted_ids[1])},
+        {"nome": books_names[0], "id": str(fav_in_db.inserted_ids[0]), "img": "http://testserver/media/fig.png"},
+        {"nome": books_names[1], "id": str(fav_in_db.inserted_ids[1]), "img": "http://testserver/media/fig.png"},
     ]
 
     assert body == excepted
@@ -33,4 +33,4 @@ def test_create(client, books_in_db, books_names, db):
 
     favs = db.favoritos.find_one({"_id": ObjectId(id_)})
 
-    assert favs == {"_id": id_, "nome": books_names[0]}
+    assert favs == {"_id": id_, "nome": books_names[0], "img": "fig.png"}

@@ -9,11 +9,11 @@ async function getFavoritos() {
 }
 
 async function postFavorito(id) {
-  await favoritosAPI.post(`/${id}`)
+  await favoritosAPI.post(`/${id}/`)
 }
 
 async function deleteFavorito(id) {
-  await favoritosAPI.delete(`/${id}`)
+  await favoritosAPI.delete(`/${id}/`)
 }
 
 export {

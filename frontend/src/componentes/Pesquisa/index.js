@@ -82,8 +82,7 @@ function Pesquisa() {
       />
       { livrosPesquisados.map( livro => (
         <Resultado onClick={() => insertFavorito(livro.id)}>
-          {/* TODO: Retonar Imagem
-          <img src={livro.src} alt={livro.nome}/> */}
+          <img src={livro.img} alt={livro.nome}/>
           <p>{livro.nome}</p>
         </Resultado>
       )) }
