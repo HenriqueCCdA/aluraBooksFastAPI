@@ -45,5 +45,14 @@ def books_in_db(db, books_names):
 
 
 @pytest.fixture
-def fav_in_db(db, books_names):
-    return db.favoritos.insert_many([{"nome": name, "img": "fig.png"} for name in books_names])
+def fav_in_db(db, books_names, books_in_db):
+    return db.favoritos.insert_many(
+        [
+            {
+                "nome": name,
+                "img": "fig.png",
+                "_id": id_,
+            }
+            for name, id_ in zip(books_names, books_in_db.inserted_ids)
+        ]
+    )

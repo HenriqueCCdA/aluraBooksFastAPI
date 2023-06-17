@@ -31,6 +31,19 @@ def test_create(client, books_in_db, books_names, db):
 
     assert body["detail"] == "Book insert in Favs"
 
-    favs = db.favoritos.find_one({"_id": ObjectId(id_)})
+    fav = db.favoritos.find_one({"_id": ObjectId(id_)})
 
-    assert favs == {"_id": id_, "nome": books_names[0], "img": "fig.png"}
+    assert fav == {"_id": id_, "nome": books_names[0], "img": "fig.png"}
+
+
+@pytest.mark.integration
+def test_delete(client, fav_in_db, db):
+    id_ = fav_in_db.inserted_ids[0]
+
+    response = client.delete(f"/favoritos/{str(id_)}/")
+
+    assert response.status_code == status.HTTP_204_NO_CONTENT
+
+    fav = db.favoritos.find_one({"_id": ObjectId(id_)})
+
+    assert not fav
