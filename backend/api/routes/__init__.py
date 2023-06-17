@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 
-from .favoritos import router as favoritos_router
-from .livros import router as livros_router
+from .books import router as livros_router
+from .favorites import router as favoritos_router
 
 main_router = APIRouter()
 
