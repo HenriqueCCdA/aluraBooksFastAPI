@@ -4,6 +4,6 @@ Criando um backend em `FastAPI`para o frontend desenvolvido formação React ful
 
 | :placard: Vitrine.Dev |     |
 | -------------         | --- |
-| :sparkles: Nome       | `Apopet Api`
+| :sparkles: Nome       | `aluraBooksFastAPI`
 | :label: Tecnologias   | `FastAPI`, `Python`, `Mongodb`, `Pytest`, `Docker`, `React`, `Ruff`
 | :rocket: URL          |
